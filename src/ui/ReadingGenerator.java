@@ -64,6 +64,9 @@ public class ReadingGenerator extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         btnReadingFromFile = new javax.swing.JButton();
         btnSaveToFile = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        etJson = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,6 +144,16 @@ public class ReadingGenerator extends javax.swing.JFrame {
             }
         });
 
+        jLabel13.setFont(new java.awt.Font("宋体", 1, 24)); // NOI18N
+        jLabel13.setText("Json");
+
+        etJson.setColumns(20);
+        etJson.setRows(5);
+        jScrollPane2.setViewportView(etJson);
+        etJson.setLineWrap(true);
+
+        etJson.setWrapStyleWord(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -212,6 +225,14 @@ public class ReadingGenerator extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(81, 81, 81))))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(358, 358, 358)
+                .addComponent(jLabel13)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,7 +287,11 @@ public class ReadingGenerator extends javax.swing.JFrame {
                         .addComponent(btnReadingFromFile)
                         .addGap(18, 18, 18)
                         .addComponent(btnSaveToFile)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -281,17 +306,32 @@ public class ReadingGenerator extends javax.swing.JFrame {
                 etScore.getText(),
                 etLink.getText()
         ));
-        etTitle.setText("");
-        etCover.setText("");
-        etComment.setText("");
-        etScore.setText("");
-        etLink.setText("");
+        if(etJson.getText().equals(reading.getReadingJSON().toString())){
+            ErrorDialog errorDialog = new ErrorDialog();
+            errorDialog.setVisible(true);
+        }
+        else{
+             etTitle.setText("");
+            etCover.setText("");
+            etComment.setText("");
+            etScore.setText("");
+            etLink.setText("");
+            etJson.setText(reading.getReadingJSON().toString());
+        }
     }//GEN-LAST:event_btnAddContentMouseClicked
 
     private void etAddTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etAddTypeMouseClicked
         // TODO add your handling code here:
-        cbType.addItem(etType.getText());
-        reading.addDefine(String.valueOf(cbType.getItemCount() - 1), etType.getText());
+        reading.addDefine(String.valueOf(cbType.getItemCount()), etType.getText());
+        if(reading.getReadingJSON().toString().equals(etType.getText())){
+            ErrorDialog errorDialog = new ErrorDialog();
+            errorDialog.setVisible(true);
+        }
+        else{
+            cbType.addItem(etType.getText());
+            etType.setText("");
+            etJson.setText(reading.getReadingJSON().toString());
+        }
     }//GEN-LAST:event_etAddTypeMouseClicked
 
     private void btnSetPathMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSetPathMouseClicked
@@ -313,6 +353,7 @@ public class ReadingGenerator extends javax.swing.JFrame {
                 Logger.getLogger(ReadingGenerator.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        etJson.setText(reading.getReadingJSON().toString());
     }//GEN-LAST:event_btnReadingFromFileMouseClicked
 
     private void btnSaveToFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveToFileMouseClicked
@@ -364,6 +405,7 @@ public class ReadingGenerator extends javax.swing.JFrame {
     private javax.swing.JButton etAddType;
     private javax.swing.JTextArea etComment;
     private javax.swing.JTextField etCover;
+    private javax.swing.JTextArea etJson;
     private javax.swing.JTextField etLink;
     private javax.swing.JTextField etPath;
     private javax.swing.JTextField etScore;
@@ -373,6 +415,7 @@ public class ReadingGenerator extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -382,5 +425,6 @@ public class ReadingGenerator extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
